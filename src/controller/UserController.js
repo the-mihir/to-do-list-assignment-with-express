@@ -5,6 +5,8 @@ const sendEmail = require("../utility/SendEmail");
 const OTPModel = require("../model/OTPModel");
 
 
+
+// User Registration Function
 exports.registration= async (req,res)=>{
     try{
         let reqBody = req.body;
@@ -22,6 +24,8 @@ exports.registration= async (req,res)=>{
 
 }
 
+
+// User Login Function
 exports.login = async (req, res) => {
     try {
         let reqBody = req.body;
@@ -53,6 +57,7 @@ exports.login = async (req, res) => {
 };
 
 
+// User Profile Details
 exports.profileDetails= (req,res)=>{
 
 }
