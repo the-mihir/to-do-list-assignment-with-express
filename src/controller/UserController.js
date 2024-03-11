@@ -58,7 +58,23 @@ exports.login = async (req, res) => {
 
 
 // User Profile Details
-exports.profileDetails= (req,res)=>{
+exports.profileDetails= async (req,res)=>{
+
+   try{
+    let email = req.headers["email"];
+    let getUser = await UserModel.find({email: email})
+    res.json({
+        status: 200,
+        data: getUser
+    })
+   }catch(error){
+    res.json({
+        status: 500,
+        message: error.message
+    })
+   }
+
+
 
 }
 
