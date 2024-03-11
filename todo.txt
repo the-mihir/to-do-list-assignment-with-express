@@ -1,9 +1,0 @@
-1. File Folder Creation - Done
-2. Package Installation - Done
-3. app.js configuration - Done
-4. Run The Server - done
-5. User Model Creation - done
-6. Task Model Creation - done
-7. OTP Model Creation - done
-8. Email Utility - done
-9. User Controller -

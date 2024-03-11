@@ -79,10 +79,24 @@ exports.profileDetails= async (req,res)=>{
 }
 
 
-exports.profileUpdate= (req,res)=>{
-
-
+//updating profile Function
+exports.profileUpdate= async (req,res) =>{
+    try{
+        let email = req.headers["email"];
+        let reqBody = req.body;
+        let updateUser = await UserModel.updateOne({email: email}, reqBody);
+        res.json({
+            status: 200,
+            message: "Profile Updated Successfully",
+        })
+    }catch (error) {
+        res.json({
+            status: 500,
+            message: error.message
+        })
+    }
 }
+
 
 
 exports.verifyEmail= (req,res)=>{

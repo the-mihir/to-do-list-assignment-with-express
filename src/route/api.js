@@ -12,6 +12,7 @@ const router = express.Router();
 router.post("/registration", userController.registration);
 router.post("/login", userController.login);
 router.get("/profileDetails", AuthMiddleware, userController.profileDetails);
+router.post("/profileUpdate", AuthMiddleware, userController.profileUpdate);
 
 
 module.exports = router;
