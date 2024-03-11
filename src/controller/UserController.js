@@ -98,9 +98,34 @@ exports.profileUpdate= async (req,res) =>{
 }
 
 
+// Verifying user Email
+exports.verifyEmail= async (req,res)=>{
 
-exports.verifyEmail= (req,res)=>{
+    try{
+        const { email } = req.params;
+        const user = await UserModel.find({ email });
+        if (user.length > 0) {
+            let OTP = Math.floor(1000 + Math.random() * 9000);
+            await sendEmail(email, `Your OTP is ${OTP}`, "To Do list App Rest API Verification OTP");
+            await OTPModel.create({ email, otp: OTP, status: "active" });
+            res.json({
+                status: 200,
+                message: "OTP Sent Successfully! please check your email inbox"
+            })
+        } else {
+            res.json({
+                status: 500,
+                message: "User Not Found"
+            })
+        }
+    }
 
+    catch(error){
+        res.json({
+            status: 500,
+            message: error.message
+        })
+    }
 
 }
 
