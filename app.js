@@ -34,7 +34,7 @@ mongoose.connect(URL, OPTIONS).then((res) => {
 });
 
 
-app.use("/api",router);
+app.use("/api", router);
 
 // 404 error handler
 app.use("*", (req, res) => {
