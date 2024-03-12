@@ -129,16 +129,56 @@ exports.verifyEmail= async (req,res)=>{
 
 }
 
+// Verifying OTP
+exports.verifyOTP= async (req,res)=>{
 
-exports.verifyOTP= (req,res)=>{
+    try{
+        const { email, otp} = req.params;
+        const user = await OTPModel.find({ email:email, otp:otp, status: "active" });
+        if( user.length > 0 ){
+            await OTPModel.updateOne({ email:email, otp:otp } , { status: "verified" });
+            res.json({
+                status: 200,
+                message: "OTP Verified Successfully"
+            })
+        }
+        else{
+            res.json({
+                status: 500,
+                message: "Invalid OTP"
+            })
+        }
+    }
+    catch (err) {
+        res.json({
+            status: 500,
+            message: err.message
+        })
+
+    }
+}
 
 
+// Password Reset
+exports.passwordReset = async (req, res) => {
+
+    try {
+        const { email, otp, password } = req.params;
+        let user = await OTPModel.find({ email: email, otp: otp, status: 'verified' })
+        if (user.length > 0) {
+            await OTPModel.deleteOne({ email: email, otp: otp })
+            await UserModel.updateOne({ email: email }, { password: password });
+            res.json({ status: "success", message: "Password Update Success" })
+        }
+        else {
+            res.json({ status: "fail", message: "Invalid Request" })
+        }
+
+    } catch (err) {
+        res.json({ status: "fail", message: err })
+    }
 
 }
 
-exports.passwordReset= (req,res)=>{
 
-
-
-}
 
